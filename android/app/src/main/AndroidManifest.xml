@@ -1,9 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.apnanote">
+    package="com.example.academix">
      <uses-permission android:name="android.permission.INTERNET" />
      <!-- <uses-permission android:name="com.google.android.gms.permission.AD_ID"/> -->
    <application
-        android:label="Apna Notes"
+        android:label="Academix"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
         android:usesCleartextTraffic="true">

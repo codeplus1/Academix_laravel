@@ -1,0 +1,40 @@
+<variant
+    name="release"
+    package="com.example.academix"
+    minSdkVersion="21"
+    targetSdkVersion="34"
+    shrinking="true"
+    mergedManifest="D:\programming\Projects\Flutter Projects\academix\android\build\app\intermediates\merged_manifest\release\AndroidManifest.xml"
+    proguardFiles="D:\programming\Projects\Flutter Projects\academix\android\build\app\intermediates\default_proguard_files\global\proguard-android.txt-7.3.0;C:\flutter\packages\flutter_tools\gradle\flutter_proguard_rules.pro;proguard-rules.pro"
+    partialResultsDir="D:\programming\Projects\Flutter Projects\academix\android\build\app\intermediates\lint_vital_partial_results\release\out"
+    desugaredMethodsFiles="C:\Users\SJ computer Center\.gradle\caches\transforms-3\35a98fd0185200b6076e02bc6c972c78\transformed\D8BackportedDesugaredMethods.txt">
+  <buildFeatures
+      namespacing="REQUIRED"/>
+  <sourceProviders>
+    <sourceProvider
+        manifest="src\main\AndroidManifest.xml"
+        javaDirectories="src\main\java;src\main\kotlin"
+        resDirectories="src\main\res"
+        assetsDirectories="src\main\assets"/>
+    <sourceProvider
+        manifest="src\release\AndroidManifest.xml"
+        javaDirectories="src\release\java;src\release\kotlin"
+        resDirectories="src\release\res"
+        assetsDirectories="src\release\assets"/>
+  </sourceProviders>
+  <testSourceProviders>
+  </testSourceProviders>
+  <testFixturesSourceProviders>
+  </testFixturesSourceProviders>
+  <manifestPlaceholders>
+    <placeholder
+        name="applicationName"
+        value="android.app.Application" />
+  </manifestPlaceholders>
+  <mainArtifact
+      classOutputs="D:\programming\Projects\Flutter Projects\academix\android\build\app\intermediates\javac\release\classes;D:\programming\Projects\Flutter Projects\academix\android\build\app\tmp\kotlin-classes\release;D:\programming\Projects\Flutter Projects\academix\android\build\app\kotlinToolingMetadata;D:\programming\Projects\Flutter Projects\academix\android\build\app\intermediates\compile_and_runtime_not_namespaced_r_class_jar\release\R.jar"
+      applicationId="np.com.codeplus.academix"
+      generatedSourceFolders="D:\programming\Projects\Flutter Projects\academix\android\build\app\generated\ap_generated_sources\release\out;D:\programming\Projects\Flutter Projects\academix\android\build\app\generated\aidl_source_output_dir\release\out;D:\programming\Projects\Flutter Projects\academix\android\build\app\generated\source\buildConfig\release;D:\programming\Projects\Flutter Projects\academix\android\build\app\generated\renderscript_source_output_dir\release\out"
+      generatedResourceFolders="D:\programming\Projects\Flutter Projects\academix\android\build\app\generated\res\rs\release;D:\programming\Projects\Flutter Projects\academix\android\build\app\generated\res\resValues\release">
+  </mainArtifact>
+</variant>

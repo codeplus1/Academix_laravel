@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:apnanote/const/const.dart';
+import 'package:academix/const/const.dart';
 import 'package:http/http.dart' as http;
 
 class Api {

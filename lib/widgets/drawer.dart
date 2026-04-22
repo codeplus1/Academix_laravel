@@ -1,12 +1,12 @@
 import 'dart:io';
 
+import 'package:academix/pages/notes_download1.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../const/const.dart';
 import '../pages/about_us.dart';
-import '../pages/notes_download.dart';
 
 void _launchURL(String url) async {
   // ignore: deprecated_member_use
@@ -18,9 +18,15 @@ Widget myDrawer(BuildContext context) {
     child: ListView(
       children: [
         SizedBox(
-          height: 120,
-          child:
-              Image.network('http://www.sjcomputercenter.com.np/image/1.png'),
+          height: 130,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(1.0), // Set the corner radius
+            child: Image.network(
+              'https://i.ibb.co/YRz8KmT/Academix-1.png',
+              fit: BoxFit
+                  .cover, // Optional: ensures the image fills the container
+            ),
+          ),
         ),
         ListTile(
           onTap: () {
@@ -35,7 +41,7 @@ Widget myDrawer(BuildContext context) {
         ListTile(
           onTap: () {
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const NotesDownload()));
+                MaterialPageRoute(builder: (context) => NotesDownload()));
           },
           leading: Icon(
             Icons.download,
@@ -43,10 +49,18 @@ Widget myDrawer(BuildContext context) {
           ),
           title: const Text("Download Notes"),
         ),
+        // ListTile(
+        //   onTap: () {},
+        //   leading: Icon(
+        //     Icons.favorite_border_rounded,
+        //     color: primaryColor,
+        //   ),
+        //   title: const Text("Favourite"),
+        // ),
         const Divider(),
         ListTile(
           onTap: () {
-            _launchURL("https://www.facebook.com/vipcoding/");
+            _launchURL(facebook);
             // print('Saroj');
           },
           leading: Icon(
@@ -57,7 +71,7 @@ Widget myDrawer(BuildContext context) {
         ),
         ListTile(
           onTap: () {
-            _launchURL("https://www.sjcomputercenter.com.np/");
+            _launchURL(website);
             // print('Saroj');
           },
           leading: Icon(
@@ -69,8 +83,7 @@ Widget myDrawer(BuildContext context) {
         const Divider(),
         ListTile(
           onTap: () {
-            _launchURL(
-                "https://play.google.com/store/apps/details?id=np.com.sjcomputercenter.digitalshikshaa");
+            _launchURL(feedbackForm);
             // print('Saroj');
           },
           leading: Icon(
@@ -81,8 +94,7 @@ Widget myDrawer(BuildContext context) {
         ),
         ListTile(
           onTap: () {
-            _launchURL(
-                "https://play.google.com/store/apps/details?id=np.com.sjcomputercenter.digitalshikshaa");
+            _launchURL(feedbackForm);
             // print('Saroj');
           },
           leading: Icon(
@@ -106,8 +118,7 @@ Widget myDrawer(BuildContext context) {
         const Divider(),
         ListTile(
           onTap: () {
-            _launchURL(
-                "https://play.google.com/store/apps/details?id=np.com.sjcomputercenter.digitalshikshaa");
+            _launchURL(updateappLink);
             // print('Saroj');
           },
           leading: Icon(
@@ -115,7 +126,7 @@ Widget myDrawer(BuildContext context) {
             color: primaryColor,
           ),
           title: const Text("Updated Version"),
-          subtitle: const Text("1.0.2"),
+          subtitle: const Text("1.0.7"),
         ),
         const Divider(),
         ListTile(

@@ -1,59 +1,41 @@
 import 'dart:convert';
-
-import 'package:carousel_pro_nullsafety/carousel_pro_nullsafety.dart';
-
 import 'package:flutter/material.dart';
-
 import '../Api/api.dart';
-import '../const/const.dart';
 import 'loading_effect.dart';
 
 Widget carousel(BuildContext context) {
-  Future getSlide() async {
+  Future<List<dynamic>> getSlide() async {
     var response = await Api().getData('slide');
-    var data = json.decode(response.body);
-    return data;
+    var decodedData = json.decode(response.body);
+    return decodedData['data']; // Fetch slides
   }
 
-  return FutureBuilder(
+  return FutureBuilder<List<dynamic>>(
     future: getSlide(),
-    builder: (BuildContext context, AsyncSnapshot snapshot) {
-      if (snapshot.hasData) {
-        return snapshot.data == null
-            ? Center(
-                child: loadingEffect(),
-              )
-            : SizedBox(
-                height: 150.0,
-                width: MediaQuery.of(context).size.width,
-                child: Carousel(
-                  dotBgColor: Colors.transparent,
-                  dotPosition: DotPosition.bottomLeft,
-                  dotSize: 0.5,
-                  dotSpacing: 10,
-                  animationDuration: const Duration(seconds: 1),
-                  images: [
-                    Image.network(
-                      url + snapshot.data[0]['image'],
-                      fit: BoxFit.cover,
-                    ),
-                    Image.network(url + snapshot.data[1]['image'],
-                        fit: BoxFit.cover),
-                    Image.network(url + snapshot.data[2]['image'],
-                        fit: BoxFit.cover),
-                    Image.network(url + snapshot.data[3]['image'],
-                        fit: BoxFit.cover),
-                    Image.network(url + snapshot.data[4]['image'],
-                        fit: BoxFit.cover),
-                  ],
-                ),
+    builder: (BuildContext context, AsyncSnapshot<List<dynamic>> snapshot) {
+      if (snapshot.connectionState == ConnectionState.waiting) {
+        return Center(child: loadingEffect());
+      } else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+        return SizedBox(
+          height: 130.0,
+          width: MediaQuery.of(context).size.width - 10,
+          child: PageView.builder(
+            // reverse: true,
+            scrollDirection: Axis.horizontal,
+            itemCount: snapshot.data!.length,
+            itemBuilder: (BuildContext context, int index) {
+              return ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: Image.network(
+                    snapshot.data![index]['image'], // Fetching images
+                    fit: BoxFit.cover,
+                    width: double.infinity),
               );
-      } else if (snapshot.hasError) {
-        return const Text('Check Your Wifi Connection');
-      } else {
-        return Center(
-          child: loadingEffect(),
+            },
+          ),
         );
+      } else {
+        return const Center(child: Text("No slides available."));
       }
     },
   );

@@ -1,32 +1,45 @@
-// ignore_for_file: library_private_types_in_public_api
+// ignore_for_file: library_private_types_in_public_api, deprecated_member_use, duplicate_ignore
 
+import 'package:academix/widgets/carousel.dart';
+import 'package:academix/widgets/loading_effect.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:apnanote/pages/blog_search_page.dart';
+import 'package:academix/pages/blog_search_page.dart';
+import 'package:academix/widgets/tools.dart';
 
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../const/const.dart';
 import '../widgets/blogs.dart';
-import '../widgets/carousel.dart';
+// import '../widgets/carousel.dart';
 import '../widgets/drawer.dart';
 
 class DashboardScreen extends StatefulWidget {
-  const DashboardScreen({Key? key}) : super(key: key);
+  const DashboardScreen({super.key});
 
   @override
   _DashboardScreenState createState() => _DashboardScreenState();
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
+  bool _isLoading = false; // Track loading state
+
   Future onrefresh() async {
-    await Future.delayed(const Duration(seconds: 2), () {
-      setState(
-        () {
-          blogs(context);
-          carousel(context);
-        },
-      );
+    setState(() {
+      _isLoading = true; // Start loading
     });
+
+    await Future.delayed(const Duration(seconds: 2), () {
+      setState(() {
+        blogs(context);
+        carousel(context);
+        _isLoading = false; // Stop loading after data is loaded
+      });
+    });
+  }
+
+  void _launchURL(String url) async {
+    if (!await launch(url)) throw 'Could not launch $url';
   }
 
   @override
@@ -40,7 +53,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           repeatForever: true,
           animatedTexts: [
             ColorizeAnimatedText(
-              'Apna Notes',
+              'Academix',
               textStyle: colorizeTextStyle,
               colors: colorizeColors,
             ),
@@ -48,27 +61,40 @@ class _DashboardScreenState extends State<DashboardScreen> {
           isRepeatingAnimation: true,
         ),
         actions: [
+          // Refresh button (no loading indicator here)
           IconButton(
+            onPressed: () {
+              onrefresh();
+            },
+            icon: Icon(
+              Icons.refresh_rounded,
+              color: textColor,
+            ),
+          ),
+
+          // Search button
+          IconButton(
+            color: textColor,
             onPressed: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => const SearchPage()),
               );
             },
-            icon: const Icon(
+            icon: Icon(
               Icons.search,
-              size: 30,
+              size: 25,
             ),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: IconButton(
-              onPressed: () {
-                onrefresh();
+            child: InkWell(
+              onTap: () {
+                _launchURL("https://www.academix.codeplus.com.np/");
               },
-              icon: const Icon(
-                Icons.wifi_protected_setup_outlined,
-                size: 30,
+              child: Icon(
+                Icons.menu_book_sharp,
+                color: textColor,
               ),
             ),
           )
@@ -80,7 +106,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
         child: WillPopScope(
           onWillPop: () async {
             final now = DateTime.now();
-            // ignore: prefer_const_declarations
             final maxDuration = const Duration(seconds: 2);
             final isWarning = lastPressed == null ||
                 now.difference(lastPressed!) > maxDuration;
@@ -88,6 +113,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               lastPressed = DateTime.now();
 
               final snackBar = SnackBar(
+                backgroundColor: primaryColor,
                 content: const Text('Double Tap To Close App'),
                 duration: maxDuration,
               );
@@ -100,17 +126,25 @@ class _DashboardScreenState extends State<DashboardScreen> {
               return true;
             }
           },
-          // Code end Here of DOuble tap
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                // Slider Component
-                carousel(context),
-                blogs(context),
-                // Course Type Components
-              ],
-            ),
-          ),
+          child: _isLoading
+              ? Center(
+                  child: loadingEffect(), // Show loading indicator
+                )
+              : SingleChildScrollView(
+                  physics: BouncingScrollPhysics(
+                      decelerationRate: ScrollDecelerationRate.normal),
+                  child: Column(
+                    children: [
+                      // herowidget(context),
+                      // Slider Component
+                      SizedBox(height: 5),
+                      carousel(context),
+                      SizedBox(height: 5),
+                      const Tools(),
+                      blogs(context),
+                    ],
+                  ),
+                ),
         ),
       ),
     );

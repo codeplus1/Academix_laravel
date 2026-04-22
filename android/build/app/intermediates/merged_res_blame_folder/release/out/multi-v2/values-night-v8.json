@@ -1,0 +1,28 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.example.academix.app-mergeReleaseResources-27:/values-night-v8/values-night-v8.xml",
+            "map": [
+                {
+                    "source": "D:\\programming\\Projects\\Flutter Projects\\academix\\android\\app\\src\\main\\res\\values-night\\styles.xml",
+                    "from": {
+                        "startLines": "3,16",
+                        "startColumns": "4,4",
+                        "startOffsets": "172,940",
+                        "endLines": "9,18",
+                        "endColumns": "12,12",
+                        "endOffsets": "593,1104"
+                    },
+                    "to": {
+                        "startLines": "2,8",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,353",
+                        "endLines": "7,10",
+                        "endColumns": "12,12",
+                        "endOffsets": "348,517"
+                    }
+                }
+            ]
+        }
+    ]
+}

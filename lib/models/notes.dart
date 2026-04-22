@@ -1,6 +1,7 @@
 class Note {
   final String document;
   final String title;
+  // ignore: non_constant_identifier_names
   final String created_at;
 
   // ignore: non_constant_identifier_names

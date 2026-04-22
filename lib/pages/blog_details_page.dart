@@ -10,8 +10,7 @@ class BlogPage extends StatelessWidget {
   final String? createdAt;
 
   const BlogPage(
-      {Key? key, this.title, this.description, this.image, this.createdAt})
-      : super(key: key);
+      {super.key, this.title, this.description, this.image, this.createdAt});
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +31,7 @@ class BlogPage extends StatelessWidget {
                   style: {
                     "body": Style(
                       letterSpacing: 0.5,
-                      fontSize: const FontSize(18),
+                      fontSize: FontSize(18),
                     ),
                   },
                   data: description!,

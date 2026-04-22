@@ -1,9 +1,8 @@
 import 'dart:convert';
-
+import 'package:academix/widgets/server_error.dart';
 import 'package:flutter/material.dart';
-
 import '../Api/api.dart';
-import 'blog_box.dart';
+import 'blog_box.dart'; // Make sure this imports the new BlogBox StatefulWidget
 import 'loading_effect.dart';
 
 Future getBlogs() async {
@@ -31,16 +30,18 @@ Widget blogs(BuildContext context) {
                       itemCount: snapshot.data.length,
                       itemBuilder: (BuildContext context, int index) {
                         var mydata = snapshot.data[index];
-                        return blogBox(
-                            context,
-                            mydata['title'],
-                            mydata['description'],
-                            mydata['image'].toString(),
-                            mydata['created_at']);
+                        return BlogBox(
+                          // Use BlogBox StatefulWidget
+                          title: mydata['title'],
+                          description: mydata['description'],
+                          image: mydata['image'].toString(),
+                          createdAt: mydata['created_at'],
+                          searchText: null, // Pass searchText if needed
+                        );
                       },
                     );
             } else if (snapshot.hasError) {
-              return const Text('Check Your Wifi Connection');
+              return error500(context);
             } else {
               return Center(
                 child: loadingEffect(),
