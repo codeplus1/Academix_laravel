@@ -4,7 +4,6 @@ import 'package:academix/const/const.dart';
 import 'package:http/http.dart' as http;
 
 class Api {
-  // Methods
   // baseurl is in const folder String baseurl = "http://192.168.1.4:3000/";
   // Get Data
   Future getData(String endpoint) async {
